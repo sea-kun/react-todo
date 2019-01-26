@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from 'reactstrap';
 
-import TodoList from "./TodoList.jsx";
-import TodoForm from "./TodoForm.jsx";
+import TodoTitle from "../presentational/TodoTitle"
+import TodoForm from "../presentational/TodoForm";
+import TodoList from "../presentational/TodoList";
 
 class TodoApp extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class TodoApp extends Component {
       <Container>
           <Row>
               <Col>
-                  <h1>Todo App</h1>
+                  <TodoTitle/>
               </Col>
           </Row>
           <Row>
