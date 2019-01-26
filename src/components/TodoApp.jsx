@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { Container, Row, Col } from 'reactstrap';
 
-import List from "./List.jsx";
-import Form from "./Form.jsx";
+import TodoList from "./TodoList.jsx";
+import TodoForm from "./TodoForm.jsx";
 
 class TodoApp extends Component {
   constructor(props) {
@@ -47,15 +48,27 @@ class TodoApp extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <h1>Todo App</h1>
-        <Form
-          text={this.state.text}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-        <List todos={this.state.todos} handleClick={this.handleClick} />
-      </React.Fragment>
+      <Container>
+          <Row>
+              <Col>
+                  <h1>Todo App</h1>
+              </Col>
+          </Row>
+          <Row>
+              <Col>
+                  <TodoForm
+                    text={this.state.text}
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                  />
+              </Col>
+          </Row>
+          <Row>
+              <Col>
+                  <TodoList todos={this.state.todos} handleClick={this.handleClick} />
+              </Col>
+          </Row>
+      </Container>
     );
   }
 }
