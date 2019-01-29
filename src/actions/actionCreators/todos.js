@@ -1,4 +1,4 @@
-import { INCREMENT_ID, INPUT_TEXT, GET_ERROR, ADD_TODO, REMOVE_TODO } from '../actionTypes/todos'
+import { INCREMENT_ID, INPUT_TEXT, CLEAR_TEXT, GET_ERROR, ADD_TODO, REMOVE_TODO } from '../actionTypes/todos'
 
 export const incrementId = id => ({
     type: INCREMENT_ID,
@@ -8,6 +8,10 @@ export const incrementId = id => ({
 export const inputText = text => ({
     type: INPUT_TEXT,
     text: text
+})
+
+export const clearText = () => ({
+    type: CLEAR_TEXT
 })
 
 export const getError = error => ({

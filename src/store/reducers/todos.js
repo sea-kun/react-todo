@@ -1,4 +1,4 @@
-import { INCREMENT_ID, INPUT_TEXT, GET_ERROR, ADD_TODO, REMOVE_TODO } from '../../actions/actionTypes/todos'
+import { INCREMENT_ID, INPUT_TEXT, CLEAR_TEXT, GET_ERROR, ADD_TODO, REMOVE_TODO } from '../../actions/actionTypes/todos'
 
 //このメソッド名がmapStateToPropsで落ちてくる
 export const id = (state = 0, action) => {
@@ -14,6 +14,8 @@ export const text = (state = "", action) => {
     switch (action.type) {
         case INPUT_TEXT:
             return action.text
+        case CLEAR_TEXT:
+            return ""
         default:
             return state
     }

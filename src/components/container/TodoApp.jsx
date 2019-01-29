@@ -5,8 +5,9 @@ import TodoTitle from "../presentational/TodoTitle"
 import TodoForm from "../presentational/TodoForm";
 import TodoList from "../presentational/TodoList";
 
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { incrementId, inputText, getError, addTodo, removeTodo } from '../../actions/actionCreators/todos'
+import { incrementId, inputText, clearText, getError, addTodo, removeTodo } from '../../actions/actionCreators/todos'
 
 class TodoApp extends Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class TodoApp extends Component {
             return;
         }
 
+        this.props.clearText()
         this.props.getError(false)
         this.props.incrementId(this.props.id)
         this.props.addTodo({
@@ -73,6 +75,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     incrementId: id    => dispatch(incrementId(id)),
     inputText:   text  => dispatch(inputText(text)),
+    clearText:   ()    => dispatch(clearText()),
     getError:    error => dispatch(getError(error)),
     addTodo:     todo  => dispatch(addTodo(todo)),
     removeTodo:  id    => dispatch(removeTodo(id))
