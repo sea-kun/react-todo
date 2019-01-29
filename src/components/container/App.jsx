@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from 'reactstrap';
 
-import TodoTitle from "../presentational/TodoTitle"
-import TodoForm from "../presentational/TodoForm";
-import TodoList from "../presentational/TodoList";
+import Title from "../presentational/atoms/Title"
+import Form from "../presentational/molecules/FormFeild";
+import TodoList from "../presentational/molecules/TodoList";
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -27,13 +27,13 @@ class TodoApp extends Component {
             return;
         }
 
-        this.props.clearText()
         this.props.getError(false)
-        this.props.incrementId(this.props.id)
         this.props.addTodo({
             id: this.props.id,
             text: this.props.text
         })
+        this.props.incrementId(this.props.id)
+        this.props.clearText()
     }
 
     render() {
@@ -41,12 +41,12 @@ class TodoApp extends Component {
             <Container>
                 <Row>
                     <Col>
-                        <TodoTitle/>
+                        <Title/>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <TodoForm
+                        <Form
                             text={this.props.text}
                             error={this.props.error}
                             handleChange={this.handleChange}
@@ -60,14 +60,14 @@ class TodoApp extends Component {
                     </Col>
                 </Row>
             </Container>
-        );
+        )
     }
 }
 
 //reducerのメソッド名がstateに落ちてくる
 const mapStateToProps = state => ({
-    id: state.id,
-    text: state.text,
+    id:    state.id,
+    text:  state.text,
     error: state.error,
     todos: state.todos
 })
