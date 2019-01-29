@@ -12,14 +12,20 @@ const Todo = styled.td`
 
 const TodoList = props => {
     const todoList = props.todos.map(todo => (
-        <tr>
-            <Todo key={todo.id} onClick={() => props.handleClick(todo.id)}>
+        <tr key={todo.id}>
+            <Todo onClick={() => props.handleClick(todo.id)}>
                 {todo.text}
             </Todo>
         </tr>
     ));
 
-    return <Table>{todoList}</Table>;
+    return (
+        <Table>
+            <tbody>
+                {todoList}
+            </tbody>
+        </Table>
+    );
 };
 
 export default TodoList;

@@ -5,56 +5,33 @@ import TodoTitle from "../presentational/TodoTitle"
 import TodoForm from "../presentational/TodoForm";
 import TodoList from "../presentational/TodoList";
 
+import { connect } from 'react-redux'
+import { incrementId, inputText, getError, addTodo, removeTodo } from '../../actions/actionCreators/todos'
+
 class TodoApp extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            id: 0,
-            text: "",
-            todos: [],
-            error: false
-        };
-
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleClick(id) {
-        const todos = this.state.todos.filter(todo => todo.id != id);
-        this.setState({
-            todos: todos
-        });
-    }
-
-    handleChange(e) {
-        this.setState({
-            text: e.target.value
-        });
-    }
-
+    handleClick(id) { this.props.removeTodo(id) }
+    handleChange(e) { this.props.inputText(e.target.value) }
     handleSubmit(e) {
         e.preventDefault();
 
-        if (!this.state.text) {
-            this.setState(state => ({
-                error: true
-            }));
+        if (!this.props.text) {
+            this.props.getError(true)
             return;
         }
 
-        this.setState(state => ({
-            id: state.id + 1,
-            text: "",
-            todos: [
-                ...state.todos,
-                {
-                    id: state.id,
-                    text: state.text
-                }
-            ],
-            error: false
-        }));
+        this.props.getError(false)
+        this.props.incrementId(this.props.id)
+        this.props.addTodo({
+            id: this.props.id,
+            text: this.props.text
+        })
     }
 
     render() {
@@ -68,8 +45,8 @@ class TodoApp extends Component {
                 <Row>
                     <Col>
                         <TodoForm
-                            text={this.state.text}
-                            error={this.state.error}
+                            text={this.props.text}
+                            error={this.props.error}
                             handleChange={this.handleChange}
                             handleSubmit={this.handleSubmit}
                         />
@@ -77,7 +54,7 @@ class TodoApp extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <TodoList todos={this.state.todos} handleClick={this.handleClick} />
+                        <TodoList todos={this.props.todos} handleClick={this.handleClick} />
                     </Col>
                 </Row>
             </Container>
@@ -85,4 +62,20 @@ class TodoApp extends Component {
     }
 }
 
-export default TodoApp;
+//reducerのメソッド名がstateに落ちてくる
+const mapStateToProps = state => ({
+    id: state.id,
+    text: state.text,
+    error: state.error,
+    todos: state.todos
+})
+
+const mapDispatchToProps = dispatch => ({
+    incrementId: id    => dispatch(incrementId(id)),
+    inputText:   text  => dispatch(inputText(text)),
+    getError:    error => dispatch(getError(error)),
+    addTodo:     todo  => dispatch(addTodo(todo)),
+    removeTodo:  id    => dispatch(removeTodo(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
