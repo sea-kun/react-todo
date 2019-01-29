@@ -7,7 +7,7 @@ import TodoList from "../presentational/TodoList";
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { incrementId, inputText, clearText, getError, addTodo, removeTodo } from '../../actions/actionCreators/todos'
+import * as TodoActionCreators from '../../actions/actionCreators/todos'
 
 class TodoApp extends Component {
     constructor(props) {
@@ -72,13 +72,8 @@ const mapStateToProps = state => ({
     todos: state.todos
 })
 
-const mapDispatchToProps = dispatch => ({
-    incrementId: id    => dispatch(incrementId(id)),
-    inputText:   text  => dispatch(inputText(text)),
-    clearText:   ()    => dispatch(clearText()),
-    getError:    error => dispatch(getError(error)),
-    addTodo:     todo  => dispatch(addTodo(todo)),
-    removeTodo:  id    => dispatch(removeTodo(id))
-})
+const mapDispatchToProps = dispatch => (
+    bindActionCreators(TodoActionCreators, dispatch)
+)
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
