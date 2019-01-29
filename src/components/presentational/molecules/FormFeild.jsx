@@ -14,7 +14,7 @@ export default (props) => {
             <Layout>
                 <Error>Nothing contents</Error>
                 <Form
-                    value={props.text}
+                    text={props.text}
                     handleChange={props.handleChange}
                     handleSubmit={props.handleSubmit}
                 />
@@ -25,7 +25,7 @@ export default (props) => {
     return (
         <Layout>
             <Form
-                value={props.text}
+                text={props.text}
                 handleChange={props.handleChange}
                 handleSubmit={props.handleSubmit}
             />
