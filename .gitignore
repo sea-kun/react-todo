@@ -1,4 +1,12 @@
+# webpack
 dist/bundle.js
+
+# npm
 node_modules
 package-lock.json
+
+# mac
 .DS_Store
+
+# env
+server/env/env.go
